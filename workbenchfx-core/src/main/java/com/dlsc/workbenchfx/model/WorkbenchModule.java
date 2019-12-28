@@ -12,8 +12,6 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * Represents the base for a module, to be displayed in WorkbenchFX.
@@ -25,13 +23,11 @@ import org.slf4j.LoggerFactory;
  * @author Marco Sanfratello
  */
 public abstract class WorkbenchModule {
-
-  private static final Logger LOGGER =
-      LoggerFactory.getLogger(WorkbenchModule.class.getName());
+  
 
   private Workbench workbench;
-  private final String name;
-  private Image imgIcon = null;
+  private String name;
+  private Image image = null;
 
   // The sets which store the toolbar icons which are displayed in the modules toolbar
   private final ObservableList<ToolbarItem> toolbarControlsLeft =
@@ -39,6 +35,14 @@ public abstract class WorkbenchModule {
   private final ObservableList<ToolbarItem> toolbarControlsRight =
       FXCollections.observableArrayList();
 
+
+   /**
+   * Super constructor to be called by the implementing class.
+   *
+   */
+  protected WorkbenchModule() {
+    super();
+  }
 
   /**
    * Super constructor to be called by the implementing class.
@@ -57,7 +61,7 @@ public abstract class WorkbenchModule {
    */
   protected WorkbenchModule(String name, Image icon) {
     this.name = name;
-    this.imgIcon = icon;
+    this.image = icon;
   }
 
   // Lifecycle
@@ -174,16 +178,28 @@ public abstract class WorkbenchModule {
   public final String getName() {
     return Objects.isNull(name) ? "" : name;
   }
+  
+  public final void setName(String name) {
+    this.name = name;
+  }
+  
+  public final Image getImage() {
+    return image;
+  }
+  
+  public final void setImage(Image image) {
+    this.image = image;
+  }
 
   /**
    * Returns the icon of this module as a {@link Node}.
    * @return the icon of this module as a {@link Node}.
    */
   public final Node getIcon() {
-    if (imgIcon == null) {
+    if (image == null) {
       return new Label(name);
     }
-    return new ImageView(imgIcon);
+    return new ImageView(image);
   }
 
   /**

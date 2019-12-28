@@ -1,6 +1,6 @@
 module com.dlsc.workbenchfx.core {
     requires com.google.common;
-    requires javafx.controls;
+    requires transitive javafx.controls;
     requires org.slf4j;
 
     exports com.dlsc.workbenchfx;
